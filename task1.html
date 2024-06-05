@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Age Calculator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.21.4/babel.min.js"></script>
+    <style>
+        body {
+            font-family:monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: url('/Users/nxshl/Documents/code/webdev_intern/task1imgg.jpeg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .container {
+            background-color:bisque;
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+        .container h1 {
+            margin-bottom: 30px;
+        }
+        .container label {
+            display: block;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        .container input {
+            width: 94%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .container button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: green;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .container button:hover {
+            background-color: darkgreen;
+        }
+        .result {
+            margin-top: 20px;
+            font-style: oblique;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState } = React;
+
+        function AgeCalculator() {
+            const [dob, setDob] = useState('');
+            const [age, setAge] = useState(null);
+
+            const calculateAge = () => {
+                if (!dob) {
+                    alert("Missing / Incomplete Date of birth");
+                    return;
+                }
+
+                const dobDate = new Date(dob);
+                const now = new Date();
+
+                let age = now.getFullYear() - dobDate.getFullYear();
+                const monthDiff = now.getMonth() - dobDate.getMonth();
+                const dayDiff = now.getDate() - dobDate.getDate();
+
+                if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+                    age--;
+                }
+
+                setAge(age);
+            };
+
+            return (
+                <div className="container">
+                    <h1>Age Calculator</h1>
+                    <label htmlFor="dob">Enter the birth date :</label>
+                    <input
+                        type="date"
+                        id="dob"
+                        value={dob}
+                        onChange={(e) => setDob(e.target.value)}
+                    />
+                    <button onClick={calculateAge}>Calculate Age</button>
+                    {age !== null && <div className="result">You are currently {age} years old.</div>}
+                </div>
+            );
+        }
+
+        function App() {
+            return (
+                <AgeCalculator />
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>

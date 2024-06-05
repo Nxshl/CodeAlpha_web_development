@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("https://images.inc.com/uploaded_files/image/1920x1080/getty_623425276_351576.jpg");
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background : whitesmoke;
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .input-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        button {
+            padding: 10px;
+            background-color: green;
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #f4f4f4;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 3px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        li .delete {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <div class="input-container">
+            <input type="text" id="task-input" placeholder="Add a new task">
+            <button id="add-task">Add</button>
+        </div>
+        <ul id="task-list"></ul>
+    </div>
+    <script>
+        document.getElementById('add-task').addEventListener('click', function() {
+            const taskInput = document.getElementById('task-input');
+            const taskText = taskInput.value.trim();
+            if (taskText !== '') {
+                const taskList = document.getElementById('task-list');
+                const listItem = document.createElement('li');
+                listItem.textContent = taskText;
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.className = 'delete';
+                deleteButton.addEventListener('click', function() {
+                    taskList.removeChild(listItem);
+                });
+
+                listItem.appendChild(deleteButton);
+                taskList.appendChild(listItem);
+
+                taskInput.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
+
